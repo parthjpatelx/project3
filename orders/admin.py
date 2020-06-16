@@ -13,9 +13,3 @@ admin.site.register(PastaProtein)
 admin.site.register(Salad)
 admin.site.register(Platter)
 admin.site.register(Platter_type)
-
-
-
-
-
-# Register your models here.

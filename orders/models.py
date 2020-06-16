@@ -31,7 +31,7 @@ class Topping(models.Model):
     topping = models.CharField(max_length=64)
 
     def __str__(self):
-        return f'{self.toppings}'
+        return f'{self.topping}'
 
 #how to add extra cheese to a sub? Add an optional boolean?
 

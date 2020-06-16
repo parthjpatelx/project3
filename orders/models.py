@@ -1,14 +1,14 @@
 from django.db import models
 
 #Added
-class Pizzas(models.Model):
+class Pizza_style(models.Model):
     style = models.CharField(max_length=64)
 
     def __str__(self):
         return f'{self.style}'
 
 # added - of note, delete 'small' duplicate entry
-class Sizes(models.Model):
+class Size(models.Model):
     size = models.CharField(max_length=64, blank=True)
 
     def __str__(self):
@@ -18,32 +18,32 @@ class Sizes(models.Model):
 # special = 4 toppings
 
 class Pizza(models.Model):
-    type = models.ForeignKey(Pizzas, on_delete=models.CASCADE)
+    type = models.ForeignKey(Pizza_style, on_delete=models.CASCADE)
     # set toppings to 0 if toppings are not specified
     toppings = models.IntegerField()
-    size = models.ForeignKey(Sizes, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
     price = models.FloatField(max_length=4)
 
     def __str__(self):
         return f'Pizza type: {self.type}, Toppings {self.toppings}, Size = {self.size}, Price = {self.price}' 
 
-class Toppings(models.Model):
-    toppings = models.CharField(max_length=64)
+class Topping(models.Model):
+    topping = models.CharField(max_length=64)
 
     def __str__(self):
         return f'{self.toppings}'
 
 #how to add extra cheese to a sub? Add an optional boolean?
 
-class Subs(models.Model):
+class Sub_type(models.Model):
     type = models.CharField(max_length=64)
 
     def __str__(self):
         return f'{self.type}'
 
 class Sub(models.Model):
-    type = models.ForeignKey(Subs, on_delete=models.CASCADE)
-    size = models.ForeignKey(Sizes, on_delete=models.CASCADE)
+    type = models.ForeignKey(Sub_type, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
     price = models.FloatField(max_length=4)
     # toppings = models.ManyToManyField(Toppings, blank=True)
 
@@ -51,7 +51,7 @@ class Sub(models.Model):
         return f'Type: {self.type}, Size = {self.size}, {self.price}'
 
     
-class Pastas(models.Model):
+class Pasta_type(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
@@ -64,7 +64,7 @@ class PastaProtein(models.Model):
         return f'{self.protein}'
 
 class Pasta(models.Model):
-    name = models.ForeignKey(Pastas, on_delete=models.CASCADE)
+    name = models.ForeignKey(Pasta_type, on_delete=models.CASCADE)
     price = price = models.FloatField(max_length=4)
     protein = models.ForeignKey(PastaProtein, on_delete=models.CASCADE)
 
@@ -72,15 +72,15 @@ class Pasta(models.Model):
         return f'Name: {self.name}, Price: {self.price}, Protein: {self.protein}'
 
 
-class Platters(models.Model):
+class Platter_type(models.Model):
     type = models.CharField(max_length=64)
 
     def __str__(self):
         return f'{self.type}'
 
 class Platter(models.Model):
-    name = models.ForeignKey(Platters, on_delete=models.CASCADE)
-    size = models.ForeignKey(Sizes, on_delete=models.CASCADE)
+    name = models.ForeignKey(Platter_type, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
     price = models.FloatField(max_length=4)
 
     def __str__(self):

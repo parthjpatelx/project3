@@ -1,0 +1,9 @@
+{% extends "orders/base.html" %}
+
+{% block body %}
+<ul>
+{% for style in pizza_styles %}
+<li> {{ style }} </li>
+{% endfor %}
+</ul>
+{% endblock %}

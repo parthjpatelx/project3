@@ -5,15 +5,28 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
+from orders.models import Pizza_style
 
 
 def index(request):
-    if not request.user.is_authenticated:
-        return render(request, "orders/login.html", {"message": None})
+    # if not request.user.is_authenticated:
+    #     return render(request, "orders/login.html", {"message": None})
+    # context = {
+    #     "user": request.user
+    # }
+    # return render(request, "orders/user.html", context)
+
+    style_objects = Pizza_style.objects.all()
+    style_names = []
+    for style in style_objects:
+        name = style.__dict__['style']
+        style_names.append(name)
+
     context = {
-        "user": request.user
+        'pizza_styles': style_names
     }
-    return render(request, "orders/user.html", context)
+    return render(request, "orders/menu.html", context)
+
 
 
 def login_view(request):
@@ -34,6 +47,7 @@ def logout_view(request):
       return render(request, "orders/login.html", {"message": "Logged out."})
 
 def register(request):
+    # note: add error pages so that users are not to debug page in case an exception is made (i..e if passwords dont match, django inherent form validation)
     if request.method == 'POST':
         try:
             username = request.POST["username"]

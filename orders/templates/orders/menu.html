@@ -1,4 +1,9 @@
 {% extends "orders/base.html" %}
+{% load static %}
+
+{% block head %}
+<script type="text/javascript" src="{% static 'orders/orders.js' %}"></script>
+{% endblock %}
 
 {% block body %}
 <table>
@@ -8,12 +13,13 @@
         <th> size </th>
         <th> Price </th>
     </tr>
-    <tr>
     {% for pizza in pizzas %}
+    <tr>
+        <td> <a href = '#' class = 'pizza' data-pizza = {{ pizza.id}}> {{ pizza.type }} </a></td>
         <td> {{ pizza.toppings }}</td>
         <td> {{ pizza.size }}</td>
         <td> {{ pizza.price }}</td>
-    {% endfor %}
     </tr>
+    {% endfor %}
 </table>
 {% endblock %}

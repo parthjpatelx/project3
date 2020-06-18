@@ -26,7 +26,8 @@ def index(request):
         item = {'type': Pizza_style.objects.get(pk=pie['type_id']), 
                 'toppings':pie['toppings'], 
                 'size':Size.objects.get(pk=pie['size_id']),
-                'price': pie['price']}
+                'price': pie['price'],
+                'id' : pie['id']}
         serialized.append(item)
     context = {
         'pizzas': serialized

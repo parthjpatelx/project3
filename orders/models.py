@@ -18,14 +18,14 @@ class Size(models.Model):
 # special = 4 toppings
 
 class Pizza(models.Model):
-    type = models.ForeignKey(Pizza_style, on_delete=models.CASCADE)
+    type = models.ForeignKey(Pizza_style, on_delete=models.CASCADE, related_name='types')
     # set toppings to 0 if toppings are not specified
     toppings = models.IntegerField()
-    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='sizes')
     price = models.FloatField(max_length=4)
 
     def __str__(self):
-        return f'Pizza type: {self.type}, Toppings {self.toppings}, Size = {self.size}, Price = {self.price}' 
+        return f"Pizza type: {self.type}, Toppings: {self.toppings}, Size: {self.size}, Price: {self.price}"
 
 class Topping(models.Model):
     topping = models.CharField(max_length=64)

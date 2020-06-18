@@ -1,9 +1,19 @@
 {% extends "orders/base.html" %}
 
 {% block body %}
-<ul>
-{% for style in pizza_styles %}
-<li> {{ style }} </li>
-{% endfor %}
-</ul>
+<table>
+    <tr>
+        <th> Pizza type </th>
+        <th> # toppings </th>
+        <th> size </th>
+        <th> Price </th>
+    </tr>
+    <tr>
+    {% for pizza in pizzas %}
+        <td> {{ pizza.toppings }}</td>
+        <td> {{ pizza.size }}</td>
+        <td> {{ pizza.price }}</td>
+    {% endfor %}
+    </tr>
+</table>
 {% endblock %}

@@ -5,28 +5,34 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
-from orders.models import Pizza_style
+from orders.models import Pizza_style, Pizza, Size
 
 
 def index(request):
-    # if not request.user.is_authenticated:
-    #     return render(request, "orders/login.html", {"message": None})
+    # style_objects = Pizza_style.objects.all()
+    # style_names = []
+    # for style in style_objects:
+    #     name = style.__dict__['style']
+    #     style_names.append(name)
+
     # context = {
-    #     "user": request.user
+    #     'pizza_styles': style_names
     # }
-    # return render(request, "orders/user.html", context)
+    # return render(request, "orders/menu.html", context)
 
-    style_objects = Pizza_style.objects.all()
-    style_names = []
-    for style in style_objects:
-        name = style.__dict__['style']
-        style_names.append(name)
-
+    serialized = []
+    for pizza in Pizza.objects.all(): 
+        pie = pizza.__dict__
+        item = {'type': Pizza_style.objects.get(pk=pie['type_id']), 
+                'toppings':pie['toppings'], 
+                'size':Size.objects.get(pk=pie['size_id']),
+                'price': pie['price']}
+        serialized.append(item)
     context = {
-        'pizza_styles': style_names
+        'pizzas': serialized
     }
-    return render(request, "orders/menu.html", context)
 
+    return render(request, "orders/menu.html", context)
 
 
 def login_view(request):
